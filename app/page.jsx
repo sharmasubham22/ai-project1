@@ -1,64 +1,122 @@
-import { AnimateCode } from "@/components/AnimateCode";
 import { GravityStars } from "@/components/GravityStars";
-import { AquaTitle, GrayTitle } from "@/components/reusables";
-import { Badge } from "@/components/ui/badge";
+import { AquaTitle, GrayTitle, SectionHeading, SectionLabel } from "@/components/reusables";
+import Features from "@/components/sections/Features";
+import Hero from "@/components/sections/Hero";
 import { Button } from "@/components/ui/button";
-import { AVATARS } from "@/lib/data";
+import { LOGOS, ROLES } from "@/lib/data";
+import { PricingTable } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="overflow-x-hidden">
-      <section className="pt-25 sm:pt-30 relative min-h-screen grid grid-cols-2 lg:grid-cols-5 px-4 sm:px-8 pb-20 overflow-hidden">
-        <GravityStars />
-        <div className="col-span-full lg:col-span-3 flex flex-col items-center justify-center text-center">
-          <Badge variant="aqua">Welcome to Prepzo</Badge>
-          <h1 className="font-serif relative text-5xl sm:text-6xl lg:text-7xl tracking-tighter max-w-4xl">
-            <GrayTitle>Ace your next Interview</GrayTitle>
-            <br/>
-            <AquaTitle>with real experts</AquaTitle>
-          </h1>
-          <p className="relative text-sm sm:text-base md:text-lg text-stone-400 max-w-xl mt-6 leading relaxed">
-          Practice real interview scenarios, get instant AI-powered feedback, and improve faster with Prepzo, where you can book 1:1 sessions with senior engineers from top-comapnies.
-          </p>
+      <section>
+        <Hero />
+      </section>
 
-          <div className="relative flex justify-center gap-2 sm:gap-4 mt-10 sm:w-auto">
-            <Link href={'/onboarding'}>
-            <Button variant="aqua" size="hero">Get Started</Button>
-            </Link>
-            <Link href={'/explore'}>
-            <Button variant="outline" size="hero">Browse Interviewers →</Button>
-            </Link>
-          </div>
-
-          <div className="relative flex items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-16">
-          <div className="flex">
-              {AVATARS.map((av, i) => (
-                <div
-                  key={i}
-                  className={`w-8 h-8 rounded-full border-2 border-[#0a0a0b] overflow-hidden ${
-                    i > 0 ? "-ml-2" : ""
-                  }`}
-                >
-                  <Image
-                    src={av.src}
-                    alt="user avatar"
-                    width={32}
-                    height={32}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-            <p className="text-sm text-stone-500 text-center sm:text-left">
-              <strong className="text-stone-400 font-medium">1100+ engineers</strong>{" "}
-              got their dream jobs via Prepzo
-            </p>
-          </div>
+      <section className="relative z-10 border-y border-white/10 py-14">
+        <p className="text-center fonr-medium text-xs text-stone-600 tracking-widest uppercase mb-8">
+          Candidates landed roles at
+        </p>
+        <div className="flex items-center justify-center flex-wrap gap-24 px-6">
+          {LOGOS.map((logo) => (
+            <Image
+              key={logo.alt}
+              src={logo.src}
+              alt={logo.alt}
+              width={50}
+              height={50}
+              className="h-10 w-auto opacity-20 grayscale invert"
+            />
+          ))}
         </div>
-        <div className="col-span-full lg:col-span-2 flex items-center justify-center text-center lg:justify-start mt-12 lg:mt-0">
-              <AnimateCode duration={30000} writing/>
+      </section>
+
+      <section>
+        <Features />
+      </section>
+
+      <section className="relative z-10 pb-25 max-w-5xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <SectionLabel>Who is it for</SectionLabel>
+          <SectionHeading gray="Built for both sides" aqua="of the table" />
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {ROLES.map((role) => (
+            <div
+              key={role.label}
+              className="relative bg-card border border-white/10 hover:border-[#8CD4CB]/20 rounded-2xl p-12 h-full transition duration-300 overflow-hidden"
+            >
+              <div className="absolute bottom-0 right-0 w-48 h-48 rounded-full bg-[radial-gradient(circle,rgba(139,211,202,0.05)_0%,transparent_70%)] pointer-events-none" />
+              <span className="inline-block text-xs font-semibold text-[#8CD4CB] tracking-widest uppercase border border-[#8CD4CB]/20 bg-[#8CD4CB]/10 rounded-full px-3 py-1.5 mb-5">
+                {role.label}
+              </span>
+              <h3 className="font-serif text-2xl tracking-tight mb-4">
+                {role.title}
+              </h3>
+              <p className="text-sm text-stone-400 leading-relaxed mb-8">
+                {role.desc}
+              </p>
+              <ul className="space-y-3">
+                {role.perks.map((p) => (
+                  <li key={p} className="flex gap-3 text-sm text-stone-400">
+                    <span className="mt-0.5 min-w-4 h-4 rounded-full bg-[#8CD4CB]/10 border border-[#8CD4CB]/20 flex items-center justify-center text-xs text-[#8CD4CB]">
+                      ✓
+                    </span>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="relative z-10 pb-25 max-w-5xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <SectionLabel>Pricing</SectionLabel>
+          <SectionHeading
+            gray="Simple, transparent"
+            aqua="credit based plans"
+          />
+          <p className="text-stone-400 mt-3 text-sm">
+            Each credit = one session. Unused credits roll over.
+          </p>
+        </div>
+        <PricingTable checkoutProps={{appearance:{
+          elements:{
+            drawerRoot:{
+              zIndex:2000,
+            }
+          }
+        }}}/>
+      </section>
+
+      <section className="relative z-10 pb-25 max-w-5xl mx-auto px-6">
+        <div className="relative border border-[#8CD4CB]/20 rounded-3xl px-3 sm:px-16 py-20 bg-linear-to-br from-[#8CD4CB]/5 text-center overflow-hidden">
+          <GravityStars />
+          <h2 className="font-serif relative text-4xl md:text-5xl leading-tight tracking-tight mb-4">
+            <GrayTitle>Your next interview</GrayTitle>
+            <br />
+            <AquaTitle>starts here</AquaTitle>
+          </h2>
+          <p className="relative text-stone-400 font-light text-sm mb-11">
+            Join Thousands of engineers already leveling up on Prepzo.
+          </p>
+          <div className="relative flex justify-center gap-2 sm:gap-4 mt-10 sm:w-auto">
+            <Link href={"/onboarding"}>
+              <Button variant="aqua" size="hero">
+                Get Started
+              </Button>
+            </Link>
+            <Link href={"/explore"}>
+              <Button variant="outline" size="hero">
+                Browse Interviewers →
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

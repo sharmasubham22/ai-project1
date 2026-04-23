@@ -25,24 +25,29 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider appearance={{ theme: dark, }}>
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
-      <body className={`${lora.variable} ${dmsans.variable} font-sans`}>
-      <ThemeProvider
+    <ClerkProvider appearance={{ theme: dark }}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${lora.variable} ${dmsans.variable} font-sans`}>
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        {/* Footer */}
-        </ThemeProvider>
+            <Header />
+            <main className="min-h-screen">{children}</main>
+            <footer className="relative z-10 border-t border-white/7 py-12 mx-auto px-6 flex flex-wrap items-center justify-center text-stone-400">
+              <span>
+                © 2026{" "}
+                <a href="/" className="hover:underline">
+                  Prepzo™
+                </a>
+                . All Rights Reserved.
+              </span>
+            </footer>
+          </ThemeProvider>
         </body>
-    </html>
+      </html>
     </ClerkProvider>
   );
 }
