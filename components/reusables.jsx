@@ -3,13 +3,20 @@ export const GrayTitle = ({children}) => (
 )
 
 export const AquaTitle = ({children}) => (
-    <span className="bg-linear-to-br from-[#8bd3ca] via-[#5da49c] to-[#2c766e] bg-clip-text text-transparent">{children}</span>
+    <span className="bg-linear-to-br from-[#8CD4CB] via-[#5da49c] to-[#2c766e] bg-clip-text text-transparent">{children}</span>
 )
 
 export const SectionLabel = ({children}) => (
-    <p className="inline-flex items-center gap-2 text-xs font-semibold text-[#8bd3ca] tracking-[0.14em] uppercase">
-        <span className="w-4 h-px bg-[#8bd3ca]">
+    <p className="inline-flex items-center gap-2 text-xs font-semibold text-[#8CD4CB] tracking-[0.14em] uppercase">
+        <span className="w-4 h-px bg-[#8CD4CB]" />
         {children}
-        </span>
     </p>
+)
+
+export const SectionHeading = ({gray, aqua}) => (
+    <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] leading-[1.1] tracking-[-0.025em]">
+        <GrayTitle>{gray}</GrayTitle>
+        <br/>
+        <AquaTitle>{aqua}</AquaTitle>
+    </h2>
 )

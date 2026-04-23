@@ -1,0 +1,16 @@
+import React from 'react'
+
+export default function BentoCards({icon, title, desc, children, className=""}) {
+  return (
+    <div
+      className={`relative bg-linear-to-br from-[#8CD4CB]/10 via-card to-card border border-foreground/10 hover:border-[#8CD4CB]/20 rounded-2xl p-9 h-full transition duration-300 overflow-hidden ${className}`}
+    >
+      <span className="w-11 h-11 rounded-xl bg-[#8CD4CB]/10 border border-[#8CD4CB]/20 flex items-center justify-center text-xl mb-5">
+        {icon}
+      </span>
+      <h3 className="font-serif text-xl tracking-tight mb-2">{title}</h3>
+      <p className="text-sm text-stone-400 leading-relaxed">{desc}</p>
+      {children}
+    </div>
+  );
+}
